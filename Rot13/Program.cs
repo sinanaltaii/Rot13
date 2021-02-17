@@ -6,11 +6,11 @@ namespace Rot13
 	{
 		private static char[] Alphabets = new[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 
-		private const string TestExpected = "Grfg";
-		private const string Test = "Test";
+		private const string TestExpected = "C# is cool";
+		private const string Test = "C# is cool";
 		private const int Position = 13;
 		//private const string SwedishExpected = "Övning";
-		
+
 		static void Main(string[] args)
 		{
 			var testActual = Rot13(Test);
@@ -21,10 +21,12 @@ namespace Rot13
 		{
 			var hashed = new char[message.Length];
 			char charInAlphabets;
+			char found = '\0';
 			for (var i = 0; i < message.Length; i++)
 			{
+				found = '\0';
 				var inputCharValue = message[i];
-				for (var k = 0; k <Alphabets.Length; k++)
+				for (var k = 0; k < Alphabets.Length; k++)
 				{
 					charInAlphabets = Alphabets[k];
 					bool isLower = char.IsLower(inputCharValue);
@@ -34,16 +36,23 @@ namespace Rot13
 						if (k <= 12)
 						{
 							var newPostion = charIndex + Position;
-							hashed[i] = isLower == false ?  char.ToUpper(Alphabets[newPostion]) : Alphabets[newPostion];
+							hashed[i] = isLower == false ? char.ToUpper(Alphabets[newPostion]) : Alphabets[newPostion];
+							found = Alphabets[newPostion];
 							break;
 						}
 						else
 						{
 							var congurent = charIndex % Position;
 							hashed[i] = isLower == false ? char.ToUpper(Alphabets[congurent]) : Alphabets[congurent];
+							found = Alphabets[congurent];
 							break;
 						}
 					}
+				}
+
+				if (found == '\0')
+				{
+					hashed[i] = inputCharValue;
 				}
 			}
 			var hashedValue = new string(hashed);
