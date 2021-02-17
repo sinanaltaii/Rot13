@@ -21,10 +21,9 @@ namespace Rot13
 		{
 			var hashed = new char[message.Length];
 			char charInAlphabets;
-			char found = '\0';
 			for (var i = 0; i < message.Length; i++)
 			{
-				found = '\0';
+				char found = '\0';
 				var inputCharValue = message[i];
 				for (var k = 0; k < Alphabets.Length; k++)
 				{
